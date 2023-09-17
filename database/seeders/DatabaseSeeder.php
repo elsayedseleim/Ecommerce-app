@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         //create using query builder
         DB::table('categories')->insertOrIgnore($categories);
 
-      
+        //to excute in php === php artisan db:seed
         //create use eloquent
         for ($i=1; $i <25 ; $i++) { 
             Product::create(
