@@ -22,8 +22,9 @@ Route::get('/',function(){
 });
 
 Route::get('/category',function(){
-   
-    return view('category');
+    $results = Category::all();
+    $products = Product::all();
+    return view('category',['categories'=>$results, 'products'=>$products]);
 });
 
 Route::get('/product/{cat_id?}',function($cat_id=0){
