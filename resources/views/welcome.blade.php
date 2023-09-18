@@ -15,15 +15,17 @@
 			</div>
 
 			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
-						</div>
-						<h3>Strawberry</h3>
-						
-					</div>
-				</div>
+				@foreach ($categories as $category)
+                        <div class="col-lg-4 col-md-6 text-center">
+                            <div class="single-product-item">
+                                <div class="product-image">
+                                    <a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+                                </div>
+                                <h3>{{$category->name}}</h3>
+                                
+                            </div>
+                        </div>
+                @endforeach
 				
 			</div>
 		</div>
