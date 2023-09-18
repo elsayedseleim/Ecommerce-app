@@ -26,8 +26,13 @@ Route::get('/category',function(){
     return view('category');
 });
 
-Route::get('/product',function(){
-    $products = Product::all();
+Route::get('/product/{cat_id?}',function($cat_id=0){
+    if($cat_id){
+        $products = Product::where('category_id',$cat_id)->get();
+    }else{
+
+        $products = Product::all();
+    }
     return view('product',['products'=>$products]);
 });
 
