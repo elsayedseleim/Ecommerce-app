@@ -22,6 +22,16 @@ class ProductController extends Controller
         return view('products.addproduct');
     }
     public function storeproduct(Request $request){
+        //apply validation
+        $request->validate([
+            'name'=>['required','min:3','unique:products'],
+            'price'=>'required',
+            'quantity'=>'required',
+            'description'=>'required'
+        ]);
+
+
+        //add new product
         $newproduct = new Product();
         $newproduct->name = $request->name;
         $newproduct->price = $request->price;
