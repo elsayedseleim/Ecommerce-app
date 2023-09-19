@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -15,28 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',function(){
-    $results = Category::all();
-    //dd($results);
-    return view('welcome',['categories'=>$results]);
-});
+Route::get('/',[CategoryController::class, 'categories']);
 
-Route::get('/category',function(){
-    $results = Category::all();
-    $products = Product::all();
-    return view('category',['categories'=>$results, 'products'=>$products]);
-});
+Route::get('/category',[CategoryController::class,'categoriesWithproducts']);
 
-Route::get('/product/{cat_id?}',function($cat_id=0){
-    if($cat_id){
-        $products = Product::where('category_id',$cat_id)->get();
-    }else{
-
-        $products = Product::all();
-    }
-    return view('product',['products'=>$products]);
-});
-
+Route::get('/product/{cat_id?}',[ProductController::class,'products']);
+Route::get('/addproduct',[ProductController::class, 'addproduct']);
 /*
 Route::get('/', function () {
     $results = Category::all();
