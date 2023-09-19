@@ -23,6 +23,7 @@ Route::get('/category',[CategoryController::class,'categoriesWithproducts']);
 
 Route::get('/product/{cat_id?}',[ProductController::class,'products']);
 Route::get('/addproduct',[ProductController::class, 'addproduct']);
+Route::get('/storeproduct',[ProductController::class, 'storeproduct']);
 /*
 Route::get('/', function () {
     $results = Category::all();

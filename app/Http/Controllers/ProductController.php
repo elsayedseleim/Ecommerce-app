@@ -21,4 +21,16 @@ class ProductController extends Controller
     {
         return view('products.addproduct');
     }
+    public function storeproduct(Request $request){
+        $newproduct = new Product();
+        $newproduct->name = $request->name;
+        $newproduct->price = $request->price;
+        $newproduct->quantity = $request->quantity;
+        $newproduct->description = $request->description;
+        $newproduct->image_path = 'url';
+        $newproduct->category_id = 1;
+        $newproduct->save();
+
+        return redirect('/');
+    }
 }

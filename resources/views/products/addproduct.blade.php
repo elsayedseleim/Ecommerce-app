@@ -15,10 +15,11 @@
 
         <div class="row">
            
-            <div class="col-lg-8 mb-5 mb-lg-0 m-auto ">
+            <div class="col-lg-8  mb-lg-0 m-auto mb-5">
                 <div class="form-title m-auto ">
                 <div class="contact-form m-auto">
-                    <form type="POST" action="" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+                    <form type="POST" action="/storeproduct" id="fruitkha-contact" >
+                        @csrf()
                         <p>
                             <input type="text" placeholder="Name" name="name" id="name" class="w-100">
                             
@@ -29,8 +30,8 @@
                             
                         </p>
                         <p><textarea name="description" id="description" cols="30" rows="10" placeholder="Description"></textarea></p>
-                        <input type="hidden" name="token" value="FsWga4&@f6aw" />
-                        <p><input type="submit" value="Submit"></p>
+                        
+                        <p><input type="submit" value="Add prodcut"></p>
                     </form>
                 </div>
             </div>
