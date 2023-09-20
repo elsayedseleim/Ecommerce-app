@@ -20,28 +20,27 @@
                 <div class="contact-form m-auto">
                     <form method="POST" action="/storeproduct" id="fruitkha-contact" >
                         @csrf()
-                        <p class="d-flex">
+                        <select class="form-control mb-2" required name="category_id">
+                            <option >Select Category</option>
+                            @foreach ($categories as $category )   
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                        <span class="text-danger">
+                            @error('category_id')
+                            Missing Vlaue of The category field.
+                            @enderror
+                        </span>
+                        <p>
                             
-                            <input type="text" required placeholder="Name" name="name" id="name" class="w-50 mr-2" value="{{old('name')}}">
+                            <input type="text" required placeholder="Name" name="name" id="name" class="w-100 mr-2" value="{{old('name')}}">
                             <span class="text-danger">
                                 @error('name')
                                     {{$message}}
                                 @enderror
                             </span>
                         
-                        
-                            <select class="form-control w-50" required name="category_id">
-                                <option >Select Category</option>
-                                @foreach ($categories as $category )   
-                                <option value="{{$category->id}}">{{$category->name}}</option>
-                                @endforeach
-                            </select>
-                            <span class="text-danger">
-                                @error('category_id')
-                                Missing Vlaue of The category field.
-                                @enderror
-                            </span>
-                      
+                    
                         </p>
                         <p class="d-flex">
                             <input type="number" required placeholder="Price" name="price" id="price" class="w-50 mr-2" value="{{old('price')}}">
