@@ -37,7 +37,7 @@
                             @enderror
                         </span>
                         <p>
-                            
+                            <input type="hidden" name="id" id="id"value="{{$product->id}}">
                             <input type="text" required placeholder="Name" name="name" id="name" class="w-100 mr-2" value="{{$product->name}}">
                             <span class="text-danger">
                                 @error('name')
