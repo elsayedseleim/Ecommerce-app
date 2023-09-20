@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,7 @@ Route::get('/addproduct',[ProductController::class, 'addproduct']);
 Route::post('/storeproduct',[ProductController::class, 'storeproduct']);
 Route::get('/deleteproduct/{product_id?}',[ProductController::class,'delete']);
 Route::get('/editproduct/{product_id?}',[ProductController::class,'edit']);
-
+Route::get('/reviews',[ReviewController::class,'view']);
 /*
 Route::get('/', function () {
     $results = Category::all();
