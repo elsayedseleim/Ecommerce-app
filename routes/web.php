@@ -23,7 +23,8 @@ Route::get('/category',[CategoryController::class,'categoriesWithproducts']);
 Route::get('/product/{cat_id?}',[ProductController::class,'products']);
 Route::get('/addproduct',[ProductController::class, 'addproduct']);
 Route::post('/storeproduct',[ProductController::class, 'storeproduct']);
-route::get('/deleteproduct/{product_id?}',[ProductController::class,'delete']);
+Route::get('/deleteproduct/{product_id?}',[ProductController::class,'delete']);
+Route::get('/editproduct/{product_id?}',[ProductController::class,'edit']);
 
 /*
 Route::get('/', function () {

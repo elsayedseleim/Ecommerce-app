@@ -59,4 +59,19 @@ class ProductController extends Controller
         }
 
     }
+    public function edit($product_id=null){
+
+        if($product_id){
+            $product= Product::find($product_id);
+
+            if($product == null){
+                abort('403','The product was not found');
+            }
+            $categories = Category::all();
+            return view('products.editproduct',['product'=>$product,'categories'=>$categories]);
+        }
+        else{
+            return redirect('/product');
+        }
+    }
 }
