@@ -100,8 +100,11 @@
 					<div class="search-bar">
 						<div class="search-bar-tablecell">
 							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
+							<form method="GET" action="/search">
+							
+							<input type="text" placeholder="Search Product" name="keyword">
 							<button type="submit">Search <i class="fas fa-search"></i></button>
+							</form>
 						</div>
 					</div>
 				</div>

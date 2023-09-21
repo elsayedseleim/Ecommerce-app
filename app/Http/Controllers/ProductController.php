@@ -97,4 +97,17 @@ class ProductController extends Controller
             return redirect('/product');
         }
     }
+
+    public function search(Request $request){
+        //dd($request->keyword);
+        $results = Product::query()->where('name','like','%'.$request->keyword.'%')->get();
+        //dd($results);
+        return view('products.product', ['products' => $results]);
+
+        // if($keyword){
+        //     dd($keyword);
+        // }else{
+        //     return redirect('/product');
+        // }
+    }
 }
