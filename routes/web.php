@@ -27,6 +27,8 @@ Route::post('/storeproduct',[ProductController::class, 'storeproduct']);
 Route::get('/deleteproduct/{product_id?}',[ProductController::class,'delete']);
 Route::get('/editproduct/{product_id?}',[ProductController::class,'edit']);
 Route::get('/reviews',[ReviewController::class,'view']);
+Route::get('/addreview',[ReviewController::class,'add']);
+
 /*
 Route::get('/', function () {
     $results = Category::all();
