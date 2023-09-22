@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -24,15 +25,18 @@ class ProductController extends Controller
         $categories = Category::all();
         return view('products.addproduct', ['categories' => $categories]);
     }
-    public function storeproduct(Request $request)
-    {
+    public function storeproduct(Request $request){
+        
+        
+        //dd($newName, $path,$url);
         //apply validation
         $request->validate([
             'name' => ['required', 'min:3'],
             'price' => 'required',
             'quantity' => 'required',
             'description' => 'required',
-            'category_id' => ['required', 'between:1,6']
+            'category_id' => ['required', 'between:1,6'],
+            'photo'=>'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         //update the product
         if ($request->id) {
@@ -41,8 +45,18 @@ class ProductController extends Controller
             $product->price = $request->price;
             $product->quantity = $request->quantity;
             $product->description = $request->description;
-            $product->image_path = 'url';
             $product->category_id = $request->category_id;
+
+            $path='';
+
+            if($request->has('photo')){
+                $newName = time().'_'.$request->photo->getClientOriginalName();
+                $path= $request->photo->move('uploads',$newName);
+                $product->image_path = $path;
+            }
+
+            
+
             $product->save();
             return redirect('/');
         }
@@ -53,7 +67,8 @@ class ProductController extends Controller
                 'price' => 'required',
                 'quantity' => 'required',
                 'description' => 'required',
-                'category_id' => ['required', 'between:1,6']
+                'category_id' => ['required', 'between:1,6'],
+                'photo'=>'image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
             //add new product
             $newproduct = new Product();
@@ -61,8 +76,16 @@ class ProductController extends Controller
             $newproduct->price = $request->price;
             $newproduct->quantity = $request->quantity;
             $newproduct->description = $request->description;
-            $newproduct->image_path = 'url';
             $newproduct->category_id = $request->category_id;
+
+            $path='';
+            
+            if($request->has('photo')){
+                $newName = time().'_'.$request->photo->getClientOriginalName();
+                $path= $request->photo->move('uploads',$newName);
+            }
+            
+            $newproduct->image_path = $path;
             $newproduct->save();
     
             return redirect('/');

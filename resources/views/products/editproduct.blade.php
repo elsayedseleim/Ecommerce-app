@@ -18,7 +18,7 @@
             <div class="col-lg-8  mb-lg-0 m-auto mb-5">
                 <div class="form-title m-auto ">
                 <div class="contact-form m-auto">
-                    <form method="POST" action="/storeproduct" id="fruitkha-contact" >
+                    <form method="POST" action="/storeproduct" id="fruitkha-contact" enctype="multipart/form-data">
                         @csrf()
                         <select class="form-control mb-2" required name="category_id">
                             <option >Select Category</option>
@@ -69,6 +69,19 @@
                                     @enderror
                             </span>
                         </p>
+
+                        <p>
+                            <img src="{{asset($product->image_path)}}" alt="" width="150" height="200" class="rounded">
+                        </p>
+                        <p>
+                            <input type="file" name="photo" id="photo" class="form-control-file">
+                            <span class="text-danger">
+                                @error('photo')
+                                        {{$message}}
+                                    @enderror
+                            </span>
+                        </p>
+
                         <p><input type="submit" value="update prodcut"></p>
                     </form>
                 </div>

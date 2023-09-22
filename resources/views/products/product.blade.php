@@ -18,7 +18,7 @@
                     <div class="col-lg-4 col-md-6 text-center">
                         <div class="single-product-item">
                             <div class="product-image">
-                                <a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+                                <a href="single-product.html"><img src="{{asset($product->image_path)}}" alt=""></a>
                             </div>
                             <h3>{{$product->name}}</h3>
                             <p class="product-price"><span>Per Kg</span>{{$product->price}} $ </p>
