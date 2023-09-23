@@ -11,7 +11,8 @@
 @extends('layouts.master')
 @section('content')
     <div class="container my-5" >
-
+        <a href="/addproduct" class="btn btn-primary d-block w-50 my-3"><i
+            class="fas fa-plus"></i> Add product</a>
 
         <table id="myTable" class="display">
             <thead>
@@ -41,7 +42,7 @@
                             <a href="/deleteproduct/{{ $product->id }}" class="btn btn-danger btn-sm"><i
                                     class="fas fa-trash"></i>
                                 Delete</a>
-                            <a href="/editproduct/{{ $product->id }}" class="btn btn-primary btn-sm"><i
+                            <a href="/editproduct/{{ $product->id }}" class="btn btn-success btn-sm"><i
                                     class="fas fa-edit"></i> Update</a>
                         </td>
                     </tr>
