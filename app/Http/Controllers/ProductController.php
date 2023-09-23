@@ -16,7 +16,8 @@ class ProductController extends Controller
             $products = Product::where('category_id', $cat_id)->get();
         } else {
 
-            $products = Product::all();
+            //$products = Product::all();
+            $products = Product::paginate(2);
         }
         return view('products.product', ['products' => $products]);
     }

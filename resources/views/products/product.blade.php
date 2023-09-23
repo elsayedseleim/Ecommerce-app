@@ -1,5 +1,9 @@
 @extends('layouts.master')
-
+<style>
+    svg{
+        height:50px !important;
+    }
+</style>
 @section('content')
 <!-- product section -->
 <div class="product-section mt-150 mb-150">
@@ -29,7 +33,14 @@
                     </div>
             @endforeach
             
+            
+            
         </div>
+        
+        <div class="mt-3 - text-center m-auto">
+            {{$products->links()}}
+        </div
+        
     </div>
 
 </div>
