@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,15 +18,19 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 
 Route::get('/',[CategoryController::class, 'categories']);
 
 Route::get('/category',[CategoryController::class,'categoriesWithproducts']);
 Route::get('/product/{cat_id?}',[ProductController::class,'products']);
 Route::get('/addproduct',[ProductController::class, 'addproduct']);
-Route::post('/storeproduct',[ProductController::class, 'storeproduct']);
-Route::get('/deleteproduct/{product_id?}',[ProductController::class,'delete']);
-Route::get('/editproduct/{product_id?}',[ProductController::class,'edit']);
+Route::post('/storeproduct',[ProductController::class, 'storeproduct'])->middleware('auth');
+Route::get('/deleteproduct/{product_id?}',[ProductController::class,'delete'])->middleware('auth');
+Route::get('/editproduct/{product_id?}',[ProductController::class,'edit'])->middleware('auth');
 Route::get('/reviews',[ReviewController::class,'view']);
 Route::get('/addreview',[ReviewController::class,'add']);
 Route::get('/search',[ProductController::class,'search']);
@@ -50,4 +55,6 @@ Route::get('/test',function(){
     return "Hello Test";
 });
 */
+
+
 

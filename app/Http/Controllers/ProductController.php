@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -22,8 +23,9 @@ class ProductController extends Controller
 
     public function addproduct()
     {
+        $user = Auth::user();
         $categories = Category::all();
-        return view('products.addproduct', ['categories' => $categories]);
+        return view('products.addproduct', ['categories' => $categories, 'user'=>$user]);
     }
     public function storeproduct(Request $request){
         
