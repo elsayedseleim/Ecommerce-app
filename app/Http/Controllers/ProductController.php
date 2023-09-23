@@ -136,4 +136,11 @@ class ProductController extends Controller
         //     return redirect('/product');
         // }
     }
+
+
+    public function productTable(){
+        $products = Product::all();
+    
+        return view('products.productTable', ['products' => $products]);
+    }
 }

@@ -68,6 +68,7 @@
                                 <li><a href="/category">Category</a></li>
                                 <li><a href="/addproduct">Add product</a></li>
                                 <li><a href="/reviews">Customers Reviews</a></li>
+                                <li><a href="/productTable">Products Table</a></li>
                                 
 								<!-- Authentication Links -->
                                 @guest

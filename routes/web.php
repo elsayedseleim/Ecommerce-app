@@ -28,6 +28,7 @@ Route::get('/',[CategoryController::class, 'categories']);
 Route::get('/category',[CategoryController::class,'categoriesWithproducts']);
 Route::get('/product/{cat_id?}',[ProductController::class,'products']);
 Route::get('/addproduct',[ProductController::class, 'addproduct']);
+Route::get('/productTable',[ProductController::class, 'productTable']);
 Route::post('/storeproduct',[ProductController::class, 'storeproduct'])->middleware('auth');
 Route::get('/deleteproduct/{product_id?}',[ProductController::class,'delete'])->middleware('auth');
 Route::get('/editproduct/{product_id?}',[ProductController::class,'edit'])->middleware('auth');
