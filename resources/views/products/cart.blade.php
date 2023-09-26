@@ -23,7 +23,7 @@
                                     @foreach ($carts as $cart)
                                         {{-- @dd($cart->id,$cart->product->name,$cart->user_id) --}}
 
-                                        <tr class="table-body-row">
+                                        <tr class="table-body-row mytr">
                                             <td class="product-remove">
                                                 <a href="/deletecart/{{ $cart->id }}"><i
                                                         class="far fa-window-close"></i></a>
@@ -31,20 +31,26 @@
                                             <td class="product-image"><img src="{{ asset($cart->product->image_path) }}"
                                                     alt=""></td>
                                             <td class="product-name">{{ $cart->product->name }}</td>
-                                            <td class="product-price" id="price">${{ $cart->price }}</td>
-                                            <td class="product-quantity"> 
-												<input  type="number" placeholder="0" id="quantity"
-                                                    value="{{ $cart->quantity }}" class="quantity" oninput="showInNextSpan(this)">
+                                            <td class="product-price" id="price">
+                                                $
+                                                <span class="pprice">
+                                                    {{ $cart->price }}
+                                                </span>
+                                            </td>
+                                            <td class="product-quantity">
+                                                <input type="number" placeholder="0" id="quantity"
+                                                    value="{{ $cart->quantity }}" class="quantity"
+                                                    oninput="showQuantity(this)">
                                             </td>
                                             <td class="product-total">
-											<span class="totalQ" id="totalQ" > {{ $cart->quantity }} </span>
+                                                <span class="totalQ" id="totalQ"> {{ $cart->quantity }} </span>
                                             </td>
                                         </tr>
                                     @endforeach
                                 @else
                                     <div class="bg-danger w-75 p-2 m-auto text-white h3"> The cart is Empty .... Try to add
-                                        product to the cart ... </div> 
-								@endif
+                                        product to the cart ... </div>
+                                @endif
 
 
                             </tbody>
@@ -64,17 +70,27 @@
                             <tbody>
                                 <tr class="total-data">
                                     <td><strong>Subtotal: </strong></td>
-                                    <td>$500</td>
+                                    <td>
+                                        $
+                                        <span id="sumResult">
+
+                                        </span>
+                                    </td>
                                 </tr>
 
                                 <tr class="total-data">
                                     <td><strong>Total: </strong></td>
-                                    <td>$<span id="totalprice">0.00</span></td>
+                                    <td>
+                                        $
+                                        <span id="totalprice">0.00</span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="cart-buttons">
-                            <a href="cart.html" class="boxed-btn">Update Cart</a>
+
+                            <a onclick="getGrandTotal()" class="boxed-btn"> Update Cart</a>
+
                             <a href="checkout.html" class="boxed-btn black">Check Out</a>
                         </div>
                     </div>
@@ -96,155 +112,68 @@
 @endsection
 
 <script>
-	function showInNextSpan(inputElement) {
-		// Get the parent <td> element containing the input
-			var parentTd = inputElement.parentElement;
+    function getSubTotal() {
+        // Get all <span> elements with the class "outputSpan"
+        var priceSpans = document.querySelectorAll('.pprice');
 
-			// Get the next <td> element containing the span
-			var nextTd = parentTd.nextElementSibling;
+        var sum = 0;
 
-			// Get the associated span element
-			var outputSpan = nextTd.querySelector('.totalQ');
+        // Iterate through the selected spans and calculate the sum of their values
+        priceSpans.forEach(function(span) {
+            var value = parseFloat(span.textContent);
 
-			// Display the user's input value in the associated span
-			outputSpan.textContent = inputElement.value;
-}
-
-
-
-		// var parent = inputElement.parentElement;
-		// var totalQspan = parent.querySelector('.totalQ');
-		// //totalQspan.textContent = inputElement.value;
-		// totalQspan.textContent = inputElement.value;
+            if (!isNaN(value)) {
+                sum += value;
+            }
+        });
 
 
-      // Get the input element and the next span element
-    //   var quantity = document.getElementById("quantity");
-    //   var totalQspan = document.getElementById("totalQ");
-
-      // Display the user's input value in the next span
-      //totalQspan.textContent = quantity.value;
+        // Display the calculated sum
+        var subtotal = document.getElementById('sumResult');
+        subtotal.textContent = sum;
     }
 
-/*
-function calc(t) {
-				var val = t.value;
-				var th = t.id;
-				var tot = Number(val);
-				var pare = t.parentElement.parentElement.id;
-				var totalQspan =document.getElementById('totalQ');
-				alert(tot);
-				totalQspan.textContent = quantity;
-				
-				console.log(totalQspan);
 
-				$('#'+pare).children().children().each(function (va){   
-				var item = $(this).attr('id');
-				if(item != null ){
-					if(item != th){
-					tot =tot + Number($('#'+pare+' #'+item).val()) 
-				}}
-				});
-							$('#'+pare+' .tot').text(tot);
-							$('#'+pare+' .avg').text(tot*100/Number($('#total').text()));
-        
-     }
+    function showQuantity(inputElement) {
+        // Get the parent <td> element containing the input
+        var parentTd = inputElement.parentElement;
+        // console.log(parentTd)
+        // Get the next <td> element containing the span
+        var nextTd = parentTd.nextElementSibling;
+        // console.log(nextTd)
+        // Get the associated span element
+        var outputSpan = nextTd.querySelector('.totalQ');
 
-*/
-
-/*
-    function calculateTotal() {
-        const quantity = parseFloat(documnet.querySelectorAll('.quantity').value);
-        const totalQspan = document.querySelectorAll('.totalQ');
-        // const price = parseFloat(document.getElementById('price').value);
-        const totalpriceSpan = document.getElementById('totalprice');
-        alert(quantity);
-
-        // totalQspan.textContent = quantity;
-        // const totalprice = totalQ * price; 
-
-        // //display the total 
-
-        // //display the total price 
-        totalQspan.textContent = quantity
+        // Display the user's input value in the associated span
+        outputSpan.textContent = inputElement.value;
     }
-    // // add event listenter to quantity
-    // quantity.forEach( function(input){
-    //     input.addEventListener('input',calculateTotal);
-    // });
 
 
-    //calculate the initial total
-    quantity.addEventListener('input', calculateTotal);
+    
+    function getGrandTotal() 
+    {
+                var rows = document.querySelectorAll('.mytr');
 
+                var total = 0;
+                rows.forEach(function(row) {
+                    var priceSpan = row.querySelector('.pprice');
+                    var quantitySpan = row.querySelector('.totalQ');
+                    var price = parseFloat(priceSpan.textContent);
+                    var quantity = parseFloat(quantitySpan.textContent);
 
+                    if (!isNaN(price) && !isNaN(quantity)) {
+                        total += price * quantity;
 
+                    }
+                });
 
-    calculateTotal();
-*/
-    /*
+                var totalprice = document.getElementById('totalprice');
+                //Display with two decimal places
+                totalprice.textContent = total.toFixed(2);;
 
-    		
+    }
 
-    $("#grade").change(function() {
-     var val = $(this).val();
-    	$('#subject').html('');
-    	var info = 'val=' + val+'&teacher='+$('#teacher').val();
-       $.ajax({
-                                type: "GET",
-                                url: "/public/choosesubjectt",
-                                data: info,
-                                
-                                success: function(e){
-                                    obj = JSON.parse(e);
-    								for(var i=0 ; i<obj.length ;i++){
-    									$('#subject').append('<option value="'+obj[i][0].id+'">'+obj[i][0].value+'</option>');
-    								}
-                           
-                                }
-                            });
-    });
-     function calc(t) {
-      var val = t.value;
-        var th = t.id;
-         var tot = Number(val);
-     var pare = t.parentElement.parentElement.id;
-      $('#'+pare).children().children().each(function (va){   
-    var item = $(this).attr('id');
-    if(item != null ){
-        if(item != th){
-        tot =tot + Number($('#'+pare+' #'+item).val()) 
-    }}
-    });
-                $('#'+pare+' .tot').text(tot);
-                $('#'+pare+' .avg').text(tot*100/Number($('#total').text()));
-        
-     }
+    document.addEventListener('DOMContentLoaded', function() {getSubTotal();});
 
-            $("#getMark").one( "click", function() {
-                var grade = $("#gr").val();
-                 var subject = $("#su").val();
-                var info = 'grade=' + grade+" &subject="+subject;
-                $.ajax({
-                                type: "GET",
-                                url: "/public/TeachergetAssignment",
-                                data: info,
-                                
-                                success: function(e){
-                                    console.log(e) ;
-                                    var obj = JSON.parse(e);
-                                    for (x in obj){
-                                        for(z in obj[x]){
-                                        console.log(obj[x][z]) ;
-                                        $('.'+x+' .'+obj[x][z].assign_name).val(Number($('.'+x+' .'+obj[x][z].assign_name).val())+Number(obj[x][z].mark));
-                                        var total = Number($('.'+x+' .tot').text()) + Number(obj[x][z].mark)
-                                       $('.'+x+' .tot').text(total);
-                                        $('.'+x+' .avg').text(total*100/Number($('#total').text()));
-                                    }}
-
-                                }
-                            });
-    });
-    	
-    */
+    document.addEventListener('DOMContentLoaded', function() { getGrandTotal();});
 </script>

@@ -36,7 +36,7 @@ Route::get('/editproduct/{product_id?}',[ProductController::class,'edit'])->midd
 Route::get('/reviews',[ReviewController::class,'view']);
 Route::get('/addreview',[ReviewController::class,'add']);
 Route::get('/search',[ProductController::class,'search']);
-Route::get('/cart',[CartController::class,'index']);
+Route::get('/cart',[CartController::class,'index'])->middleware('auth');
 Route::get('/addtocart/{id?}',[CartController::class,'add']);
 /*
 Route::get('/', function () {
