@@ -13,11 +13,12 @@ class ProductController extends Controller
     public function products($cat_id = 0)
     {
         if ($cat_id) {
-            $products = Product::where('category_id', $cat_id)->get();
+            // $products = Product::where('category_id', $cat_id)->get()
+            $products = Product::where('category_id', $cat_id)->paginate(5);
         } else {
 
             //$products = Product::all();
-            $products = Product::paginate(2);
+            $products = Product::paginate(5);
         }
         return view('products.product', ['products' => $products]);
     }

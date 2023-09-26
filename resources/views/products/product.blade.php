@@ -37,14 +37,14 @@
             
         </div>
         
-        <div class="mt-3 - text-center m-auto">
-            {{$products->links()}}
-        </div
         
     </div>
-
+    
+    
+    <div class="mt-3 - text-center m-auto">
+        {{$products->links()}}
+    </div
 </div>
-
 
 <!-- end product section -->
 	
