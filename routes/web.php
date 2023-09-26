@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
@@ -35,6 +36,8 @@ Route::get('/editproduct/{product_id?}',[ProductController::class,'edit'])->midd
 Route::get('/reviews',[ReviewController::class,'view']);
 Route::get('/addreview',[ReviewController::class,'add']);
 Route::get('/search',[ProductController::class,'search']);
+Route::get('/cart',[CartController::class,'index']);
+Route::get('/addtocart/{id?}',[CartController::class,'add']);
 /*
 Route::get('/', function () {
     $results = Category::all();
