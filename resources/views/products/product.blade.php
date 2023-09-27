@@ -26,11 +26,14 @@
                             </div>
                             <h3>{{$product->name}}</h3>
                             <p class="product-price"><span>Per Kg</span>{{$product->price}} $ </p>
+
                             <a href="/addtocart/{{$product->id}}" class="btn btn-warning"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+
                             <a href="/deleteproduct/{{$product->id}}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
                             <a href="/editproduct/{{$product->id}}" class="btn btn-primary"><i class="fas fa-edit"></i> Update</a>
                         </div>
                     </div>
+                    
             @endforeach
             
             
