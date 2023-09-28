@@ -39,6 +39,7 @@ Route::get('/search',[ProductController::class,'search']);
 
 Route::get('/cart',[CartController::class,'index'])->middleware('auth');
 Route::get('/addtocart/{id?}',[CartController::class,'add'])->middleware('auth');
+Route::get('/deletecart/{cartid?}',[CartController::class, 'delete'])->middleware('auth');
 /*
 Route::get('/', function () {
     $results = Category::all();

@@ -30,11 +30,15 @@
                                             </td>
                                             <td class="product-image"><img src="{{ asset($cart->product->image_path) }}"
                                                     alt=""></td>
-                                            <td class="product-name">{{ $cart->product->name }}</td>
+                                            <td class="product-name">
+                                                <a href="/product-details/{{ $cart->product->id  }}">
+                                                    {{ $cart->product->name }}
+                                                </a>
+                                            </td>
                                             <td class="product-price" id="price">
-                                                $
+                                                
                                                 <span class="pprice">
-                                                    {{ $cart->price }}
+                                                    {{ $cart->product->price }}
                                                 </span>
                                             </td>
                                             <td class="product-quantity">
