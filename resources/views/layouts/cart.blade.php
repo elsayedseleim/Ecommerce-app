@@ -32,7 +32,9 @@
     <link rel="stylesheet" href={{ asset('assets/css/main.css') }}>
     <!-- responsive -->
     <link rel="stylesheet" href={{ asset('assets/css/responsive.css') }}>
+<style>
 
+</style>
 </head>
 
 <body>
@@ -104,8 +106,15 @@
 
                                 <li>
                                     <div class="header-icons">
-                                        <a class="shopping-cart" href="/cart"><i
-                                                class="fas fa-shopping-cart"></i></a>
+                                        <div class="cart-icon">
+                                            <a class="shopping-cart" href="/cart"><i
+                                                class="fas fa-shopping-cart">1</i>
+                                            
+                                            </a>
+                                            <span class="product-count"></span>
+
+                                          </div>
+                                        
                                         <a class="mobile-hide search-bar-icon" href="#"><i
                                                 class="fas fa-search"></i></a>
                                     </div>

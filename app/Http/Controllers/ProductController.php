@@ -43,27 +43,27 @@ class ProductController extends Controller
             'photo'=>'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         //update the product
-        if ($request->id) {
-            $product = Product::find($request->id);
-            $product->name = $request->name;
-            $product->price = $request->price;
-            $product->quantity = $request->quantity;
-            $product->description = $request->description;
-            $product->category_id = $request->category_id;
+                if ($request->id) {
+                    $product = Product::find($request->id);
+                    $product->name = $request->name;
+                    $product->price = $request->price;
+                    $product->quantity = $request->quantity;
+                    $product->description = $request->description;
+                    $product->category_id = $request->category_id;
 
-            $path='';
+                    $path='';
 
-            if($request->has('photo')){
-                $newName = time().'_'.$request->photo->getClientOriginalName();
-                $path= $request->photo->move('uploads',$newName);
-                $product->image_path = $path;
-            }
+                            if($request->has('photo')){
+                                $newName = time().'_'.$request->photo->getClientOriginalName();
+                                $path= $request->photo->move('uploads',$newName);
+                                $product->image_path = $path;
+                            }
 
-            
+                    
 
-            $product->save();
-            return redirect('/');
-        }
+                    $product->save();
+                    return redirect('/');
+                }
         
         else{
             $request->validate([
@@ -144,4 +144,19 @@ class ProductController extends Controller
     
         return view('products.productTable', ['products' => $products]);
     }
+
+    // show product details
+
+    public function show($product_id=null){
+        if($product_id){
+           //$product = Product::find($product_id);
+           $product = Product::with('category')->where('id',$product_id)->get()->first();
+         // dd($product);
+            //dd($product, $product->category->name);
+            return view('products.single-product', ['product'=>$product]);
+        }
+
+    }
+
+
 }
