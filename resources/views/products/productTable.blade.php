@@ -39,11 +39,16 @@
                                 style="max-width:100px; max-height: 100px; ">
                         </td>
                         <td>
-                            <a href="/deleteproduct/{{ $product->id }}" class="btn btn-danger btn-sm"><i
-                                    class="fas fa-trash"></i>
-                                Delete</a>
-                            <a href="/editproduct/{{ $product->id }}" class="btn btn-success btn-sm"><i
-                                    class="fas fa-edit"></i> Update</a>
+                            <div class="d-flex">
+
+                                <a href="/deleteproduct/{{ $product->id }}" class="btn btn-danger btn-sm m-1"><i
+                                        class="fas fa-trash"></i>
+                                    Delete</a>
+                                <a href="/editproduct/{{ $product->id }}" class="btn btn-warning btn-sm m-1"><i
+                                        class="fas fa-edit"></i> Update</a>
+                                <a href="/product-photos/{{ $product->id }}" class="btn btn-info btn-sm m-1">
+                                    <i class="fas fa-image"></i> Add photos</a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
