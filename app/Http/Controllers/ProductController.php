@@ -150,7 +150,8 @@ class ProductController extends Controller
     public function show($product_id=null){
         if($product_id){
            //$product = Product::find($product_id);
-           $product = Product::with('category')->where('id',$product_id)->get()->first();
+           $product = Product::with('category','productImages')->where('id',$product_id)->get()->first();
+           
          // dd($product);
             //dd($product, $product->category->name);
             return view('products.single-product', ['product'=>$product]);

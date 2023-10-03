@@ -20,18 +20,23 @@ class ProductPhotosController extends Controller
     }
     public function add(Request $request){
        
-        $request->validate([
-            'photo'=>'image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-        $path='';
-        $newName = time().'_'.$request->photo->getClientOriginalName();
-        $path= $request->photo->move('uploads',$newName);
-        $photo = new ProductImage();
-        $photo->imagePath =$path;
-        $photo->product_id =  $request->product_id;
+        if($request->has('photo')){
 
-        $photo->save();
-        return redirect('/product-photos/'.$request->product_id);
+            $request->validate([
+                'photo'=>'image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
+            $path='';
+            $newName = time().'_'.$request->photo->getClientOriginalName();
+            $path= $request->photo->move('uploads',$newName);
+            $photo = new ProductImage();
+            $photo->imagePath =$path;
+            $photo->product_id =  $request->product_id;
+    
+            $photo->save();
+            return redirect('/product-photos/'.$request->product_id);
+        }else{
+            return redirect('/product-photos/'.$request->product_id);
+        }
         
         
     }

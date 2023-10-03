@@ -309,6 +309,8 @@
     <script src={{ asset('assets/js/sticker.js') }}></script>
     <!-- main js -->
     <script src={{ asset('assets/js/main.js') }}></script>
+    <!-- Require to play the carousel slide in single product page -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
