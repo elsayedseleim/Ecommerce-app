@@ -41,9 +41,19 @@
                         <td>
                             <div class="d-flex">
 
-                                <a href="/deleteproduct/{{ $product->id }}" class="btn btn-danger btn-sm m-1"><i
-                                        class="fas fa-trash"></i>
-                                    Delete</a>
+                                <a href="/deleteproduct/{{ $product->id }}" class="btn btn-danger btn-sm m-1"
+                                    onclick="return confirm('Are you sure you want to delete this product?');">
+                                    <i class="fas fa-trash"></i>
+                                    Delete
+                                 </a>
+                                    {{-- <form action="/deleteproduct/{{ $product->id }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete Product</button>
+                                    </form>  --}}
+                                    {{-- <a  class="btn btn-danger btn-sm m-1"><i
+                                        class="fas fa-trash" onclick="event.preventDefault(); confirmDelete()" ></i>
+                                    Delete</a>    --}}
                                 <a href="/editproduct/{{ $product->id }}" class="btn btn-warning btn-sm m-1"><i
                                         class="fas fa-edit"></i> Update</a>
                                 <a href="/product-photos/{{ $product->id }}" class="btn btn-info btn-sm m-1">
@@ -63,4 +73,14 @@
         // $('#myTable').DataTable();
         
     });
+</script>
+<script>
+    function confirmDelete() {
+        if (confirm("Are you sure you want to delete this product?")) {
+            // If the user confirms, submit the form
+            document.forms[0].submit(); // Change the index if you have multiple forms on the page
+        } else {
+            // If the user cancels, do nothing
+        }
+    }
 </script>

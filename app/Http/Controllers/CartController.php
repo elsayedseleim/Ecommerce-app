@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
+// use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -36,9 +38,10 @@ class CartController extends Controller
             // $product->first()->save();
             return redirect('/cart');
         } else {
+            $product  = Product::find($product_id);
             $cart = new Cart();
             $cart->product_id = $product_id;
-            $cart->price = 00;
+            $cart->price = $product->price;
             $cart->quantity = 1;
             $cart->user_id = auth()->user()->id;
             $cart->save();
@@ -95,5 +98,28 @@ class CartController extends Controller
         }
 
     }
+
+    public function updateQuantity(Request $request){
+        $cartIds = $request->input('cart_id');
+        $quantities = $request->input('quantity');
+
+        //dd($cartIds, $quantities);
+    // Loop through the cart_ids and update quantities
+    foreach ($cartIds as $key => $cartId) {
+        $quantity = $quantities[$key];
+
+        // Find the corresponding cart item and update the quantity
+        $cart = Cart::find($cartId);
+
+        if ($cart) {
+            $cart->quantity = $quantity;
+            $cart->save();
+        }
+    }
+        return redirect('/cart');
+
+
+    }
+    
 
 }

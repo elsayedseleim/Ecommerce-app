@@ -1,5 +1,17 @@
 @extends('layouts.cart')
 
+@section('cartcounter')
+    @if (count($carts)>0)
+        {{$count =0}}
+        @foreach ($carts as $cart)
+            {{$count +=1}}
+        @endforeach
+
+    @else
+        {{$count =''}}
+    @endif
+@endsection
+
 @section('content')
     <!-- cart -->
     <div class="cart-section mt-100 mb-150">
@@ -42,15 +54,22 @@
                                                 </span>
                                             </td>
                                             <td class="product-quantity">
+
+                                                <form action="/updateQuantity" method="POST">
+                                                    @csrf
                                                 <input type="number" placeholder="0" id="quantity"
                                                     value="{{ $cart->quantity }}" class="quantity"
-                                                    oninput="showQuantity(this)">
+                                                    oninput="showQuantity(this)" name="quantity[]">
+
+                                                <input type="hidden" value="{{ $cart->id }}" name="cart_id[]">
+                                                
                                             </td>
                                             <td class="product-total">
                                                 <span class="totalQ" id="totalQ"> {{ $cart->quantity }} </span>
                                             </td>
                                         </tr>
                                     @endforeach
+                                    
                                 @else
                                     <div class="bg-danger w-75 p-2 m-auto text-white h3"> The cart is Empty .... Try to add
                                         product to the cart ... </div>
@@ -93,9 +112,10 @@
                         </table>
                         <div class="cart-buttons">
 
-                            <a onclick="getGrandTotal()" class="boxed-btn"> Update Cart</a>
-
-                            <a href="checkout.html" class="boxed-btn black">Check Out</a>
+                            <button type="submit" onclick="getGrandTotal()" class="btn btn-primary"> Update Cart</button> 
+                            {{-- <a onclick="getGrandTotal()" class="boxed-btn"> Update Cart</a> --}}
+                         </form> 
+                            <a href="/checkout" class="boxed-btn black">Check Out</a>
                         </div>
                     </div>
 

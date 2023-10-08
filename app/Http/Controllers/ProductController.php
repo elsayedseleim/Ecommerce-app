@@ -104,9 +104,9 @@ class ProductController extends Controller
 
             $product = Product::find($product_id);
             $product->delete();
-            return redirect('/product');
+            return redirect('/productTable');
         } else {
-            return redirect('/product');
+            return redirect('/productTable');
         }
     }
     public function edit($product_id = null)

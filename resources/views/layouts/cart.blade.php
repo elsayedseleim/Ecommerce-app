@@ -63,7 +63,7 @@
 
                         <!-- menu start -->
                         <nav class="main-menu">
-                            <ul>
+                            <ul class=" d-flex">
                                 <li class="current-list-item"><a href="/">Home</a>
                                 </li>
                                 <li><a href="/product">Product</a></li>
@@ -104,14 +104,14 @@
 
 
 
-                                <li>
-                                    <div class="header-icons">
+                                <li class=" d-flex">
+                                    <div class="header-icons d-flex">
                                         <div class="cart-icon">
                                             <a class="shopping-cart" href="/cart"><i
-                                                class="fas fa-shopping-cart">1</i>
-                                            
+                                                class="fas fa-shopping-cart"></i>
+                                                <span class="product-count">@yield('cartcounter')</span>
                                             </a>
-                                            <span class="product-count"></span>
+                                            
 
                                           </div>
                                         

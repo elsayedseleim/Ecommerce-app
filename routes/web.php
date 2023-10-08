@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProductPhotosController;
@@ -42,6 +43,7 @@ Route::get('/search',[ProductController::class,'search']);
 Route::get('/cart',[CartController::class,'index'])->middleware('auth');
 Route::get('/addtocart/{id?}',[CartController::class,'add'])->middleware('auth');
 Route::get('/deletecart/{cartid?}',[CartController::class, 'delete'])->middleware('auth');
+Route::post('/updateQuantity',[CartController::class,'updateQuantity']);
 
 //single product details
 Route::get('/product-details/{product_id?}',[ProductController::class,'show'])->middleware('auth');
@@ -50,7 +52,16 @@ Route::get('/product-details/{product_id?}',[ProductController::class,'show'])->
 // add product photos
 Route::get('/product-photos/{product_id?}',[ProductPhotosController::class,'index']);
 Route::post('/add-product-photo',[ProductPhotosController::class,'add']);
-Route::get('/delete-product-photo/{product_id?}/{photo_id?}',[ProductPhotosController::class,'delete']);
+Route::get('/delete-product-photo/{product_id?}/{photo_id?}',[ProductPhotosController::class,'delete'])->middleware('auth');
+
+
+
+// checkout - place an order
+Route::get('/checkout',[OrderController::class,'index']);
+Route::post('/storeorder',[OrderController::class,'storeorder']);
+
+
+
 /*
 Route::get('/', function () {
     $results = Category::all();
