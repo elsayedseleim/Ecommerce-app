@@ -60,6 +60,7 @@ Route::get('/delete-product-photo/{product_id?}/{photo_id?}',[ProductPhotosContr
 Route::get('/checkout',[OrderController::class,'index']);
 Route::post('/storeorder',[OrderController::class,'storeorder']);
 
+Route::get('/previousorders',[OrderController::class,'previousorders']);
 
 
 /*

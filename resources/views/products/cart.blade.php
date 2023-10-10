@@ -120,12 +120,13 @@
                     </div>
 
                     <div class="coupon-section">
-                        <h3>Apply Coupon</h3>
+                        <a href="/previousorders" class="btn btn-info">Previous Orders</a>
+                        {{-- <h3>Apply Coupon</h3>
                         <div class="coupon-form-wrap">
                             <form action="index.html">
                                 <p><input type="text" placeholder="Coupon"></p>
                                 <p><input type="submit" value="Apply"></p>
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
                 </div>

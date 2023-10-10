@@ -62,4 +62,16 @@ public function storeorder(Request $request){
 
     //dd($name, $email, $address, $phone, $note);
 }
+
+
+
+
+public function previousorders(){
+    $user_id = auth()->user()->id;
+    $prevorders =Order::with('orderDetails')->where('user_id', $user_id)->get();
+//    dd($prevorders);
+    // return view('products.previousorders');
+    return view('products.previousorders',['prevorders'=>$prevorders]);
+}
+
 }
