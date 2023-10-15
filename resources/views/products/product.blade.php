@@ -44,9 +44,14 @@
     </div>
     
     
-    <div class="mt-3 - text-center m-auto">
-        {{$products->links()}}
-    </div
+    <div class="row">
+        <div class="col-8 d-flex justify-content-center mx-auto">
+
+            <div class="mt-3 d-inline-block ">
+                {{ $products->onEachSide(1)->links()}}
+            </div
+        </div>
+    </div>
 </div>
 
 <!-- end product section -->

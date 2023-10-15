@@ -10,7 +10,28 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     public function index(){
+
         $user_id = auth()->user()->id;
+        //check the session if found add the session to the cart
+        
+
+        if(session('cart')!==null && count(session('cart'))>0){
+            //dd($cartSession);
+            foreach (session('cart') as $array) {
+                //dd($array);                                        
+                $cart = new Cart();
+                $cart->product_id =$array['product_id'];
+                $cart->price =$array['price'];
+                $cart->quantity=  $array['quantity'];
+                $cart->user_id = auth()->user()->id;
+                $cart->save();
+               
+                //empty the session cart
+                session(['cart' => []]);
+            }  
+        }
+
+        // if not retrieve from the cart
         $cart =Cart::with('product')->where('user_id', $user_id)->get();
        // dd($cart);
         return view('products.check-out',['cart'=>$cart]);

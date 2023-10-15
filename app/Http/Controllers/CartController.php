@@ -7,27 +7,110 @@ use App\Models\Product;
 // use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $user_id = auth()->user()->id;
-
-        //product here is the name of the relation method in Cart model
-        $cart = Cart::with('product')->where('user_id', $user_id)->get();
-        // dd($cart[1]->id);
 
 
+        
 
-        //dd($cart);
-        return view('products.cart', ['carts' => $cart]);
+        //if guest
+        if(!Auth::check()){
+
+            return view('products.cart');
+        }
+        else{
+            $user_id = auth()->user()->id;
+            $cartSession = session('cart');
+
+            if($cartSession && is_array($cartSession)){
+                //dd($cartSession);
+                foreach ($cartSession as $array) {
+                    //dd($array);                                        
+                    $cart = new Cart();
+                    $cart->product_id =$array['product_id'];
+                    $cart->price =$array['price'];
+                    $cart->quantity=  $array['quantity'];
+                    $cart->user_id = auth()->user()->id;
+                    $cart->save();
+                   
+                    //empty the session cart
+                    session(['cart' => []]);
+                    
+            }
+
+            }
+            if(Auth::check())
+            {
+                $user_id = auth()->user()->id;
+                if($user_id){
+                    //product here is the name of the relation method in Cart model
+                    $cart = Cart::with('product')->where('user_id', $user_id)->get();
+                    // dd($cart[1]->id);
+            
+            
+                    //dd(session('cart'));
+                    //dd($cart);
+        
+                    return view('products.cart', ['carts' => $cart]);
+                }
+            }
+        }
+
+        
     }
 
-    public function add($product_id)
+    public function add(Request $request, $product_id)
     {
-        $user_id = auth()->user()->id;
+        
+         // Get the product details from the database or elsewhere
+            $product  = Product::find($product_id);
+            
+      
+            //$user_id = auth()->user()->id;
+            
+            if(!Auth::check()){
+               
+                // Initialize the cart if it doesn't exist in the session
+                if (!$request->session()->has('cart')) {
+                $request->session()->put('cart', []);
+                }
+                // Retrieve the current cart from the session
+                $cart = $request->session()->get('cart');
+          
+                // Check if the product is already in the cart
+                $index = array_search($product_id, array_column($cart, 'product_id'));
+                if ($index !== false) {
+                    // If the product is already in the cart, increase its quantity
+                    $cart[$index]['quantity']++;
+                    
+                }else {
+                    // If the product is not in the cart, add it
+                    $cart[] = [
+                        'product_id' => $product_id,
+                        'price' => $product->price,
+                        'image_path' => $product->image_path,
+                        'name' => $product->name,
+                        'quantity' => 1,
+                    ];
+                }
+                    // Update the cart in the session
+                    $request->session()->put('cart', $cart);
+
+                    //dump(session('cart'));
+                    return redirect('/cart');
+            
+
+    }
+
+
+
+
+        /*
         // $product = Cart::where('user_id', $user_id)->where('product_id', $product_id)->get();
         $product = Cart::where('user_id', $user_id)->where('product_id', $product_id)->first();
         if ($product) {
@@ -47,6 +130,8 @@ class CartController extends Controller
             $cart->save();
             return redirect('/cart');
         }
+        */
+
         // if ($product_id) {
 
         //     if ($product) {

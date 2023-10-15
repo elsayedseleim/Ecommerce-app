@@ -61,14 +61,19 @@
 
                         <!-- menu start -->
                         <nav class="main-menu">
-                            <ul>
+                            <ul class="d-flex justify-content-end">
                                 <li class="current-list-item"><a href="/">Home</a>
                                 </li>
                                 <li><a href="/product">Product</a></li>
                                 <li><a href="/category">Category</a></li>
+                                @auth
                                 <li><a href="/addproduct">Add product</a></li>
+                                @endauth
                                 <li><a href="/reviews">Customers Reviews</a></li>
+                                @auth
                                 <li><a href="/productTable">Products Table</a></li>
+                                @endauth
+                                
                                 
 								<!-- Authentication Links -->
                                 @guest
@@ -80,7 +85,7 @@
                                 @else
                                     <li>
                                         <a href="#">
-                                            {{ Auth::user()->name }}
+                                            {{ Auth::user()->name }} 
                                         </a>
                                     </li>
 
@@ -105,7 +110,10 @@
                                 <li>
                                     <div class="header-icons">
                                         <a class="shopping-cart" href="/cart"><i
-                                                class="fas fa-shopping-cart"></i></a>
+                                                class="fas fa-shopping-cart"></i>
+                                                <span class="product-count">@yield('cartcounter')</span>
+                                            </a>
+
                                         <a class="mobile-hide search-bar-icon" href="#"><i
                                                 class="fas fa-search"></i></a>
                                     </div>
