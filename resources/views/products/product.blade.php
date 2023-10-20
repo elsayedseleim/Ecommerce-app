@@ -48,7 +48,7 @@
         <div class="col-8 d-flex justify-content-center mx-auto">
 
             <div class="mt-3 d-inline-block ">
-                {{ $products->onEachSide(1)->links()}}
+                {{ $products->onEachSide(1)->links()}} 
             </div
         </div>
     </div>
